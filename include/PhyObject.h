@@ -1,3 +1,4 @@
+#pragma once
 #include<eigen3/Eigen/Core>
 #include<eigen3/Eigen/Dense>
 
@@ -18,6 +19,7 @@ class PhyObject
 public:
     //获取支撑点坐标
     virtual Vector3d SupportPosition(const Vector3d& direction) = 0;
+    virtual IntesectData CollisionWith(PhyObject* other) = 0;
     // virtual void update() = 0;
     // virtual void draw() = 0;
     // virtual void applyForce(const Vector2& force) = 0;
