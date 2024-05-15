@@ -1,0 +1,4 @@
+/Users/corb/Desktop/gitlab/PhyCollision/build/CMakeFiles/PhyColiision.dir
+/Users/corb/Desktop/gitlab/PhyCollision/build/CMakeFiles/testMain.dir
+/Users/corb/Desktop/gitlab/PhyCollision/build/CMakeFiles/edit_cache.dir
+/Users/corb/Desktop/gitlab/PhyCollision/build/CMakeFiles/rebuild_cache.dir

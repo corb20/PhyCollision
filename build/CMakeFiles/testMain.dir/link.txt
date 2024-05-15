@@ -1,0 +1,1 @@
+/usr/bin/clang++ -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/testMain.dir/testMain.cpp.o -o testMain  -Wl,-rpath,/Users/corb/Desktop/gitlab/PhyCollision/build libPhyColiision.1.0.dylib 

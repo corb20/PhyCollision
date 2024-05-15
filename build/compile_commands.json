@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/Users/corb/Desktop/gitlab/PhyCollision/build",
+  "command": "/usr/bin/clang++ -DPhyColiision_EXPORTS -I/Users/corb/Desktop/gitlab/PhyCollision/include -I/Users/corb/Desktop/gitlab/PhyCollision/EIGEN3_INCLUDE_DIR -I/opt/homebrew/include -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -fPIC -o CMakeFiles/PhyColiision.dir/src/test.cpp.o -c /Users/corb/Desktop/gitlab/PhyCollision/src/test.cpp",
+  "file": "/Users/corb/Desktop/gitlab/PhyCollision/src/test.cpp",
+  "output": "CMakeFiles/PhyColiision.dir/src/test.cpp.o"
+},
+{
+  "directory": "/Users/corb/Desktop/gitlab/PhyCollision/build",
+  "command": "/usr/bin/clang++  -I/Users/corb/Desktop/gitlab/PhyCollision/include -I/Users/corb/Desktop/gitlab/PhyCollision/EIGEN3_INCLUDE_DIR -I/opt/homebrew/include -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -o CMakeFiles/testMain.dir/testMain.cpp.o -c /Users/corb/Desktop/gitlab/PhyCollision/testMain.cpp",
+  "file": "/Users/corb/Desktop/gitlab/PhyCollision/testMain.cpp",
+  "output": "CMakeFiles/testMain.dir/testMain.cpp.o"
+}
+]
