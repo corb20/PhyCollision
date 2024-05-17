@@ -1,1 +1,0 @@
-/usr/bin/clang++ -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -dynamiclib -Wl,-headerpad_max_install_names -compatibility_version 1.0.0 -current_version 1.0.0 -o libPhyColiision.1.0.dylib -install_name @rpath/libPhyColiision.1.dylib CMakeFiles/PhyColiision.dir/src/test.cpp.o 
