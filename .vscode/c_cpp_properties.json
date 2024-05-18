@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/opt/homebrew/include/eigen3/**",
-                "/opt/homebrew/include/**"
+                "/opt/homebrew/include/**",
+                "C:/Program Files (x86)/Eigen3/include/eigen3/**"
             ],
             "defines": [],
             "macFrameworkPath": [
