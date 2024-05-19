@@ -10,7 +10,7 @@ struct IntesectData
     // 穿透法向
     Vector3d normal;
     // 穿透深度
-    float penetration;
+    double penetration;
 };
 
 class PhyObject

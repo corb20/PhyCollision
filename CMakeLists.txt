@@ -10,6 +10,7 @@ file(GLOB SOURCES "src/*.cpp")
 
 find_package(Eigen3 3.4.0 REQUIRED NO_MODULE)
 
+# win 电脑需要自己配置这一行
 set(MY_EIGEN3_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/SDK/Eigen3/include/eigen3")
 
 include_directories(${EIGEN3_INCLUDE_DIR})
