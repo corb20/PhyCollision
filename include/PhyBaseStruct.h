@@ -4,8 +4,7 @@
 
 using namespace Eigen;
 
-
-double IsEqual(double a, double b);
+double IsEqual(double a, double b, double _bias = 1e-6);
 
 class Segment
 {

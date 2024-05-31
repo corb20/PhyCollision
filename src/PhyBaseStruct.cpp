@@ -2,8 +2,8 @@
 
 double bias = 1e-6;
 
-double IsEqual(double a, double b){
-    return abs(a - b) < bias;
+double IsEqual(double a, double b, double _bias){
+    return abs(a - b) < _bias;
 }
 
 double Segment::GetClosestDist(Vector3d point){
@@ -96,10 +96,10 @@ bool Tetrahedron::IsValid(){
 
 Triangle Tetrahedron::GetClosestTriangle(Vector3d p){
     Triangle trList[] = {Triangle(a,b,c),Triangle(a,b,d),Triangle(a,c,d),Triangle(b,c,d)};
-    double min_dist = trList[0].GetClosestDist(p);
+    double min_dist = trList[0].GetClosestDistWithotRange(p);
     Triangle ans = trList[0];
     for(auto tr:trList){
-        double dist = tr.GetClosestDist(p);
+        double dist = tr.GetClosestDistWithotRange(p);
         if(dist < min_dist){
             min_dist = dist;
             ans = tr;
