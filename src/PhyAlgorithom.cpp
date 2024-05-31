@@ -66,82 +66,13 @@ namespace PhyA
 
     IntesectData MKFSJCollision(PhyObject* obj1, PhyObject* obj2, double bias)
     {
-        //GJK算法第一次迭代
-        Vector3d s0 = obj1->SupportPosition(Vector3d(1, 0, 0)) - obj2->SupportPosition(Vector3d(-1, 0, 0));
-        
-        Vector3d d0 = -s0;
-        Vector3d s1 = obj1->SupportPosition(d0) - obj2->SupportPosition(-d0);
-        Vector3d d1 = GetIterateDir(s0, s1);
-        Vector3d s2 = obj1->SupportPosition(d1) - obj2->SupportPosition(-d1);
-        Vector3d d2 = GetIterateDir(s0, s1, s2);
-        Vector3d s3 = obj1->SupportPosition(d2) - obj2->SupportPosition(-d2);
-        //GJK算法开始跌代
-        Tetrahedron simplex(s0, s1, s2, s3);
-        int iterate = 0;
-        while (simplex.IsInside(Vector3d(0,0,0)) == false)
-        {
-            //取得距离原点最近的平面的3个点以及朝向原点方向的法向量
-            Triangle t = simplex.GetClosestTriangle(Vector3d(0, 0, 0));
-            Vector3d di = t.normal2Org();
-            Vector3d si = obj1->SupportPosition(di) - obj2->SupportPosition(-di); 
-            if (si.dot(t.normal()) < 0)
-            {
-                return {false, Vector3d(0, 0, 0), 0};
-            }
-            if(iterate > MAX_ITERATE_GJK)
-            {
-                //迭代次数过多,认为没有碰撞
-                return {false, Vector3d(0, 0, 0), 0};
-            }
-            simplex = Tetrahedron(si, t.a, t.b, t.c);
-            iterate++;
-        }
-        //迭代结束
-
-        // 随后使用EPA算法求具体的碰撞信息-- 但跌代结束的条件是什么呢？
-        std::vector<Vector3d> points;
-        points.push_back(simplex.a);
-        points.push_back(simplex.b);
-        points.push_back(simplex.c);
-        points.push_back(simplex.d);
-        //使用小顶堆存储三角形
-        std::priority_queue<TriangleEPA, std::vector<TriangleEPA>, std::greater<TriangleEPA> > pq;
-        pq.push(TriangleEPA(Vector3i(0, 1, 2), points));
-        pq.push(TriangleEPA(Vector3i(0, 1, 3), points));
-        pq.push(TriangleEPA(Vector3i(0, 2, 3), points));
-        pq.push(TriangleEPA(Vector3i(1, 2, 3), points));
-
-        iterate = 0;
-        bool isOver = false;
         IntesectData ans = IntesectData();
-        while (!isOver && iterate <= MAX_ITERATE_EPA)
-        {
-            TriangleEPA t = pq.top();
-            pq.pop();
-            Vector3d n = t.normal;
-            Vector3d s = obj1->SupportPosition(n) - obj2->SupportPosition(-n);
-            double dist = s.norm();
-            
-            for (int i = 0; i < points.size(); i++)
-            {
-                if (points[i].isApprox(s, bias))
-                {
-                    isOver = true;
-                    break;
-                }
-            }
-            if(ans.isIntersecting == false || dist < ans.penetration)
-            {
-                ans.isIntersecting = true;
-                ans.normal = s.normalized();
-                ans.penetration = dist;
-            }
-
-            pq.push(TriangleEPA(Vector3i(t.ptIndex[0], t.ptIndex[1], points.size()), points));
-            pq.push(TriangleEPA(Vector3i(t.ptIndex[0], t.ptIndex[2], points.size()), points));
-            pq.push(TriangleEPA(Vector3i(t.ptIndex[1], t.ptIndex[2], points.size()), points));
-            points.push_back(s);
+        Tetrahedron simplex;
+        bool isIntersecting = GJKCollision(obj1, obj2, simplex, bias);
+        if(!isIntersecting){
+            return {false, Vector3d(0, 0, 0), 0};
         }
+        ans = EPACollision(simplex, obj1, obj2, bias);
         return ans;
     }
 
@@ -298,7 +229,13 @@ namespace PhyA
 
     int GetMinTriIndex(std::vector<TriangleEPA> &TriList){
         int minIndex = -1;
+#ifdef _WIN32
+        double minTriDist = FLT_MAX;
+#elif __Apple__
         double minTriDist = MAXFLOAT;
+#else
+        double minTriDist = 1e10;
+#endif
         for(int i = 0;i<TriList.size();i++){
             if(TriList[i].minDist < minTriDist){
                 minTriDist = TriList[i].minDist;
