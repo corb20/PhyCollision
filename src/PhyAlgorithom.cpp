@@ -22,7 +22,7 @@ namespace PhyA
         TriangleEPA(Vector3i _ptIndex, std::vector<Vector3d> &ptList){
             ptIndex = _ptIndex;
             Triangle t(ptList[ptIndex[0]], ptList[ptIndex[1]], ptList[ptIndex[2]]);
-            normal = t.normal2Org();
+            normal = t.normal();
             normalOutOrg(ptList);
             minDist = t.GetClosestDistWithotRange(Vector3d(0, 0, 0));
             //如果出现原点在三角形上面的情况，需要利用其他点来确定法向量
@@ -271,7 +271,10 @@ namespace PhyA
             for(int i = 0;i<TriList.size();i++){
                 TriangleEPA tri = TriList[i];
                 //常用的一边检测一边删除的O(1)的算法，总共需要O(n)的时间复杂度
-                if(tri.normal.dot(n) > 0){
+                //通过判断点是否在三角面的外部来判断是否要删除该三角面
+                Vector3d a = points[tri.ptIndex[0]];
+                Vector3d as = s - a;
+                if(tri.normal.dot(as) > 0){
                     //删除掉所有沿着n方向的三角形
                     delTriList.push_back(tri);
                     //并且删掉原来的三角形
