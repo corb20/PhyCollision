@@ -6,6 +6,32 @@ using namespace Eigen;
 
 double IsEqual(double a, double b, double _bias = 1e-6);
 
+class Coord3d
+{
+public:
+    Eigen::Vector3d origin;
+    Eigen::Vector3d i;
+    Eigen::Vector3d j;
+    Eigen::Vector3d k;
+
+    Coord3d() :origin(Vector3d(0,0,0)), i(Vector3d(1, 0, 0)), j(Vector3d(0, 1, 0), k(Vector3d(0,0,1))) {}
+    Coord3d(Vector3d _origin, Vector3d _i, Vector3d _j){
+        origin = _origin;
+        i = _i.normalized();
+        j = _j.normalized();
+        k = i.cross(j).normalized();
+    }
+
+    //世界坐标转化为局部坐标
+    Vector3d ConversionFromWorld(Vector3d n);
+
+    //局部坐标转化为世界坐标
+    Vector3d ConversionToWorld(Vector3d n);
+
+    //其他坐标系的坐标转化为本坐标系
+    Vector3d ConversionFromOtherCoord(Vector3d n, Coord3d otherCoord);
+};
+
 class Segment
 {
 public:
@@ -15,7 +41,10 @@ public:
     Segment() : start(Vector3d(0, 0, 0)), end(Vector3d(0, 0, 0)) {}
     Segment(Vector3d start, Vector3d end) : start(start), end(end) {}
 
-    double GetClosestDist(Vector3d point);
+    double GetClosestDist(Vector3d point,Vector3d& closestPoint);
+
+    double GetClosestDistWithSegment(Segment seg, Vector3d& closestPoint1, Vector3d& closestPoint2);
+    Vector3d GetRandomNormal();
 };
 
 class Ray

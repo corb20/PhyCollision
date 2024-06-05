@@ -1,5 +1,6 @@
 #pragma once
 #include <Eigen/Core>
+#include "PhyBaseStruct.h"
 
 using namespace Eigen;
 

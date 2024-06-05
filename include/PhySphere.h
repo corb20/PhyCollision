@@ -1,3 +1,4 @@
+#pragma once
 #include "PhyObject.h"
 
 class PhySphere : public PhyObject
