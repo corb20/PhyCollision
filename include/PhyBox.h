@@ -1,5 +1,6 @@
 #pragma once
 #include "PhyObject.h"
+#include <vector>
 
 class PhyBox : public PhyObject
 {

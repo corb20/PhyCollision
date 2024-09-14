@@ -64,6 +64,9 @@ namespace PhyA
         }
     };
 
+    int GetMinTriIndex(std::vector<TriangleEPA> &TriList);
+    void GetUniqueEdges(std::vector<TriangleEPA> &TriList, std::unordered_set<int> &UniqueEdge, int pct);
+
     IntesectData MKFSJCollision(PhyObject* obj1, PhyObject* obj2, double bias)
     {
         IntesectData ans = IntesectData();
